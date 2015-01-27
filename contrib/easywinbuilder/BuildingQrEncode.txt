@@ -1,0 +1,23 @@
+How to build qrencode:
+
+2.6 qrencode:
+Download and unpack http://download.sourceforge.net/libpng/libpng-1.6.15.tar.gz inside your deps folder then configure and make:
+Code:
+
+cd /c/deps/libpng-1.6.15
+configure --disable-shared
+make
+cp .libs/libpng16.a .libs/libpng.a
+
+
+Download and unpack http://fukuchi.org/works/qrencode/qrencode-3.4.4.tar.gz inside your deps folder then configure and make:
+Code:
+
+cd /c/deps/qrencode-3.4.4
+
+LIBS="../libpng-1.6.15/.libs/libpng.a ../../mingw32/i686-w64-mingw32/lib/libz.a" \
+png_CFLAGS="-I../libpng-1.6.15" \
+png_LIBS="-L../libpng-1.6.15/.libs" \
+configure --enable-static --disable-shared --without-tools
+
+make
