@@ -40,13 +40,7 @@ extern std::string ReadCache(std::string section, std::string key);
 extern void ClearCache(std::string section);
 extern void WriteCache(std::string section, std::string key, std::string value);
 extern std::string PubKeyToAddress(const CScript& scriptPubKey);
-
-
-
-
-
 extern bool FindCashbackTransaction(CBlockIndex* pblockindexCurrentBlock, double subsidy, std::string& out_errors, std::string& out_reward_address, double& out_reward_amount);
-
 
 
 CTxMemPool mempool;
@@ -1192,13 +1186,6 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
     if (pindexLast == NULL)
         return nProofOfWorkLimit;
 
-
-	// Prod - ToDo - Remove
-	return nProofOfWorkLimit;
-
-
-
-
     // Only change once per interval
     if ((pindexLast->nHeight+1) % nInterval != 0)
     {
@@ -1223,11 +1210,10 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
     }
 
     // PeoplesReserve: During retargets, use Mandelbrot fractal intensity to calculate the retarget diff
-	
 	int iBlocksToGoBack = (pindexLast->nHeight > 256) ? (nInterval+MandelbrotIntensity(pindexLast->nHeight)-1) : nInterval-1;
     if ((pindexLast->nHeight+1) != nInterval) iBlocksToGoBack = nInterval;
 
-    // Go back 14 days worth of blocks + fractal intensity
+    // Go back 14 days worth of blocks using fractal intensity
     const CBlockIndex* pindexFirst = pindexLast;
     for (int i = 0; pindexFirst && i < iBlocksToGoBack; i++)
         pindexFirst = pindexFirst->pprev;
@@ -4901,7 +4887,7 @@ bool GetCashbackTxFromBlock(const CBlock& block, const CBlockIndex* blockindex, 
 	  {   
 		  if (tx.vout.size() >= 1 && !tx.SendersAddress.empty())
 		  {
-			  double amt = CoinToDouble(tx.vout[1].nValue);
+			  double amt = CoinToDouble(tx.vout[0].nValue);
 			  std::string senders_address = tx.SendersAddress;
 			  std::string BeatsTarget = BoolToString(tx.GetHash() < target_blockhash);	 
 			  if (senders_address.length() > 5)
