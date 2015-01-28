@@ -15,7 +15,7 @@
 #define CLIENT_VERSION_IS_RELEASE  true
 
 // Copyright year (2009-this)
-// Todo: update this when changing our copyright comments in the source
+// update this when changing our copyright comments in the source
 #define COPYRIGHT_YEAR 2015
 
 // Converts the parameter X to a string after macro replacement on X has been performed.

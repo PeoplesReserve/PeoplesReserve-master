@@ -2290,8 +2290,7 @@ bool CBlock::AcceptBlock(CValidationState &state, CDiskBlockPos *dbp)
         // Reject block.nVersion=1 blocks (mainnet >= 710000, testnet >= 400000)
         if (nVersion < 2)
         {
-            if ((!fTestNet && nHeight >= 710000) ||
-               (fTestNet && nHeight >= 400000))
+            if ((!fTestNet && nHeight >= 100) || (fTestNet && nHeight >= 100))
             {
                 return state.Invalid(error("AcceptBlock() : rejected nVersion=1 block"));
             }
@@ -2299,8 +2298,7 @@ bool CBlock::AcceptBlock(CValidationState &state, CDiskBlockPos *dbp)
         // Enforce block.nVersion=2 rule that the coinbase starts with serialized block height
         if (nVersion >= 2)
         {
-            if ((!fTestNet && nHeight >= 710000) ||
-               (fTestNet && nHeight >= 400000))
+            if ((!fTestNet && nHeight >= 100) || (fTestNet && nHeight >= 100))
             {
                 CScript expect = CScript() << nHeight;
                 if (vtx[0].vin[0].scriptSig.size() < expect.size() ||

@@ -1242,7 +1242,7 @@ void AllocateFileRange(FILE *file, unsigned int offset, unsigned int length) {
     posix_fallocate(fileno(file), 0, nEndPos);
 #else
     // Fallback version
-    // TODO: just write one byte per block
+    // just write one byte per block
     static const char buf[65536] = {};
     fseek(file, offset, SEEK_SET);
     while (length > 0) {
@@ -1439,7 +1439,7 @@ boost::filesystem::path GetTempPath() {
 #if BOOST_FILESYSTEM_VERSION == 3
     return boost::filesystem::temp_directory_path();
 #else
-    // TODO: remove when we don't support filesystem v2 anymore
+    // remove when we don't support filesystem v2 anymore
     boost::filesystem::path path;
 #ifdef WIN32
     char pszPath[MAX_PATH] = "";
@@ -1470,7 +1470,7 @@ void RenameThread(const char* name)
     // Only the first 15 characters are used (16 - NUL terminator)
     ::prctl(PR_SET_NAME, name, 0, 0, 0);
 #elif 0 && (defined(__FreeBSD__) || defined(__OpenBSD__))
-    // TODO: This is currently disabled because it needs to be verified to work
+    //  This is currently disabled because it needs to be verified to work
     //       on FreeBSD or OpenBSD first. When verified the '0 &&' part can be
     //       removed.
     pthread_set_name_np(pthread_self(), name);

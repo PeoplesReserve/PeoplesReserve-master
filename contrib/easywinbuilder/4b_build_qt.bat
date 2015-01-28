@@ -35,6 +35,8 @@
 
 mingw32-make -f Makefile.Release
 @if errorlevel 1 goto continue
+cd contrib\easywinbuilder
+zipup.bat
 @cd %ROOTPATH%
 
 @echo !!!!!!! %COINNAME%-qt DONE: Find %COINNAME%-qt.exe in ./release :)
